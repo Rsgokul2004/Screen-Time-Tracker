@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Screen Time Tracker Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="auth" id="authBox">
+  <h1>⏱ Screen Time Tracker Pro</h1>
+
+  <div class="tab">
+    <button onclick="showLogin()">Login</button>
+    <button onclick="showRegister()">Register</button>
+  </div>
+
+  <div id="loginBox">
+    <h2>Login</h2>
+    <input id="loginUser" placeholder="Username">
+    <input id="loginPass" type="password" placeholder="Password">
+    <select id="loginRole">
+      <option>User</option>
+      <option>Admin</option>
+    </select>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="registerBox" class="hidden">
+    <h2>Register</h2>
+    <input id="regUser" placeholder="Username">
+    <input id="regPass" type="password" placeholder="Password">
+    <select id="regRole">
+      <option>User</option>
+      <option>Admin</option>
+    </select>
+    <button onclick="register()">Register</button>
+  </div>
+</div>
+
+<div class="dashboard hidden" id="dashboard">
+
+  <nav>
+    <h2>📊 Dashboard</h2>
+    <div>
+      <button onclick="toggleDark()">🌙 Dark</button>
+      <button onclick="exportCSV()">CSV</button>
+      <button onclick="backupData()">Backup</button>
+      <input type="file" id="restoreFile" onchange="restoreData(event)" hidden>
+      <button onclick="restoreFile.click()">Restore</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <h3 id="welcome"></h3>
+
+  <div class="controls">
+    <label>Activity:</label>
+    <select id="activity">
+      <option>Study</option>
+      <option>Coding</option>
+      <option>YouTube</option>
+      <option>Gaming</option>
+      <option>Social Media</option>
+      <option>Other</option>
+    </select>
+
+    <label>Daily Goal Minutes:</label>
+    <input type="number" id="goalInput" placeholder="Example: 120">
+    <button onclick="saveGoal()">Save Goal</button>
+    <button onclick="startFocus()">Start Focus</button>
+    <button onclick="resetMe()">Reset My Data</button>
+  </div>
+
+  <div class="status">
+    <h2 id="statusText">Active</h2>
+    <p id="alertMsg">Screen is active</p>
+    <p id="clock"></p>
+    <p id="focusTimer">Focus Timer: 25:00</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h3>Total</h3><p id="total">0 sec</p></div>
+    <div class="card"><h3>Active</h3><p id="active">0 sec</p></div>
+    <div class="card"><h3>Idle</h3><p id="idle">0 sec</p></div>
+    <div class="card"><h3>Score</h3><p id="score">0%</p></div>
+    <div class="card"><h3>Daily Goal</h3><p id="goalStatus">0%</p></div>
+    <div class="card"><h3>Streak</h3><p id="streak">0 days</p></div>
+  </div>
+
+  <div class="inbox">
+    <h2>📩 User Inbox</h2>
+    <ul id="inboxList"></ul>
+  </div>
+
+  <div class="charts">
+    <div class="chartBox">
+      <h3>Active vs Idle</h3>
+      <canvas id="mainChart"></canvas>
+    </div>
+
+    <div class="chartBox">
+      <h3>Activity Wise Chart</h3>
+      <canvas id="activityChart"></canvas>
+    </div>
+
+    <div class="chartBox">
+      <h3>Weekly Screen Time</h3>
+      <canvas id="weeklyChart"></canvas>
+    </div>
+  </div>
+
+  <div class="admin hidden" id="adminPanel">
+  <h2>👨‍💼 Admin Panel - User Details & Activity Report</h2>
+
+ <input
+  type="text"
+  id="searchUser"
+  placeholder="Search username"
+  oninput="loadAdmin()"
+/>
+
+  <button onclick="downloadUserReport()">Download User Report CSV</button>
+  <button onclick="downloadActivityReport()">Download Activity Report CSV</button>
+
+  <h2>🚀 Advanced AI & Monitoring Features</h2>
+
+<div class="feature-grid">
+
+  <button onclick="aiProductivity()">AI Productivity Prediction</button>
+  <button onclick="openChatbot()">AI Chatbot</button>
+  <button onclick="faceDetectionDemo()">Face Detection Demo</button>
+  <button onclick="detectEmotion()">Emotion Detection Demo</button>
+  <button onclick="eyeRestReminder()">Eye Rest Reminder</button>
+
+  <button onclick="batteryMonitor()">Battery Monitor</button>
+  <button onclick="internetSpeed()">Internet Speed Check</button>
+  <button onclick="startWebcam()">Webcam Detection</button>
+
+  <button onclick="showSessionHistory()">Session History</button>
+  <button onclick="timelineGraph()">Timeline Graph</button>
+
+  <button onclick="liveUserMonitoring()">Live User Monitoring</button>
+  <button onclick="sendLiveNotification()">Live Notification</button>
+  <button onclick="screenshotDemo()">Screenshot Capture Demo</button>
+  <button onclick="screenRecording()">Screen Recording</button>
+  <button onclick="adminBroadcast()">Admin Broadcast</button>
+
+</div>
+
+
+<div class="output-box">
+  <h3>📊 Feature Output</h3>
+  <p id="featureOutput">Click any feature button...</p>
+</div>
+
+<button onclick="startWebcam()">📷 Start Camera</button>
+<button onclick="stopWebcam()">❌ Stop Camera</button>
+
+<video id="webcam" autoplay playsinline width="320" height="220"></video>
+
+<div id="chatBox" class="hidden">
+  <h3>🤖 AI Chatbot</h3>
+  <input id="chatInput" placeholder="Ask something...">
+  <button onclick="chatReply()">Send</button>
+  <p id="chatOutput"></p>
+</div>
+
+  <h3>All User Details</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Total Time</th>
+        <th>Active Time</th>
+        <th>Idle Time</th>
+        <th>Activity</th>
+        <th>Goal</th>
+        <th>Streak</th>
+        <th>Productivity</th>
+      </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+  </table>
+  <div class="idle-screenshot-section">
+  <div class="screenshot-title-row">
+    <h3>📸 Idle Screenshot Reports</h3>
+
+    <button
+      type="button"
+      class="clear-screenshot-btn"
+      onclick="clearAllIdleScreenshots()"
+    >
+      Clear All
+    </button>
+  </div>
+
+  <div id="idleScreenshotList" class="idle-screenshot-list">
+    <p>No idle screenshots found.</p>
+  </div>
+</div>
+
+  <h3>User Activity Details</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Activity</th>
+        <th>Time Spent</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="activityTable"></tbody>
+  </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

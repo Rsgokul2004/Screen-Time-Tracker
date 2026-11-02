@@ -1,0 +1,865 @@
+/* =====================================================
+   SCREEN TIME TRACKER PRO - FULL CORRECTED STYLE.CSS
+===================================================== */
+
+/* ===============================
+   GLOBAL RESET
+================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  color: #222;
+  background: transparent;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   ANIMATED BACKGROUND
+================================ */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    #667eea,
+    #764ba2,
+    #00c6ff
+  );
+  background-size: 300% 300%;
+  animation: bgMove 8s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes bgMove {
+  from {
+    background-position: left center;
+  }
+
+  to {
+    background-position: right center;
+  }
+}
+
+/* ===============================
+   COMMON ELEMENTS
+================================ */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  font-size: 15px;
+  outline: none;
+  background: white;
+  color: #222;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 15px;
+  transition: 0.25s;
+}
+
+button:hover {
+  background: #312e81;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===============================
+   LOGIN / REGISTER
+================================ */
+
+.auth {
+  width: 380px;
+  max-width: calc(100% - 30px);
+  background: white;
+  margin: 70px auto;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.auth h1 {
+  margin-bottom: 15px;
+}
+
+.auth h2 {
+  margin: 15px 0 10px;
+}
+
+.tab {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.tab button {
+  flex: 1;
+  margin: 0;
+}
+
+/* ===============================
+   DASHBOARD
+================================ */
+
+.dashboard {
+  width: 94%;
+  max-width: 1800px;
+  margin: 25px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+nav h2 {
+  font-size: 28px;
+}
+
+nav > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#welcome {
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+/* ===============================
+   CONTROLS
+================================ */
+
+.controls {
+  margin: 20px 0;
+}
+
+.controls label {
+  display: block;
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.controls button {
+  margin-top: 8px;
+}
+
+/* ===============================
+   STATUS BOX
+================================ */
+
+.status {
+  background: #dcfce7;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 0;
+  transition: 0.3s;
+}
+
+#statusText {
+  color: green;
+  font-size: 28px;
+}
+
+.status p {
+  margin-top: 4px;
+  font-size: 17px;
+}
+
+/* ===============================
+   DASHBOARD CARDS
+================================ */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  font-size: 20px;
+}
+
+.card p {
+  margin-top: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+/* ===============================
+   USER INBOX
+================================ */
+
+.inbox {
+  margin-top: 25px;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.inbox h2 {
+  margin-bottom: 12px;
+}
+
+#inboxList {
+  list-style: none;
+  padding: 0;
+}
+
+.inbox li {
+  margin: 8px 0;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.inbox-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-left: 5px solid #4f46e5;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.message-content p {
+  margin: 7px 0;
+}
+
+.message-content small {
+  color: #64748b;
+}
+
+.inbox-delete-btn {
+  background: #ef4444;
+  padding: 7px 11px;
+  white-space: nowrap;
+}
+
+.inbox-delete-btn:hover {
+  background: #b91c1c;
+}
+
+.empty-inbox {
+  background: white;
+}
+
+/* ===============================
+   CHARTS - FIXED HEIGHT
+================================ */
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+  align-items: stretch;
+}
+
+.chartBox {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 15px;
+  height: 390px;
+  min-height: 390px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.chartBox h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.chartBox canvas {
+  width: 100% !important;
+  height: 310px !important;
+  max-height: 310px !important;
+  display: block;
+}
+
+/* ===============================
+   ADMIN PANEL
+================================ */
+
+.admin {
+  margin-top: 30px;
+}
+
+.admin h2,
+.admin h3 {
+  margin: 18px 0 12px;
+}
+
+.admin-report-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===============================
+   TABLES
+================================ */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 25px;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  margin: 15px 0;
+  background: white;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 11px;
+  text-align: center;
+}
+
+th {
+  background: #4f46e5;
+  color: white;
+  font-size: 17px;
+}
+
+td {
+  font-size: 15px;
+}
+
+tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tr:hover {
+  background: #eef2ff;
+}
+
+/* ===============================
+   DELETE BUTTON
+================================ */
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* ===============================
+   FEATURE GRID
+================================ */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.feature-grid button {
+  padding: 14px;
+  margin: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-size: 15px;
+  min-height: 58px;
+}
+
+.feature-grid button:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+}
+
+/* ===============================
+   FEATURE OUTPUT
+================================ */
+
+.output-box {
+  margin-top: 25px;
+  padding: 20px;
+  background: #f1f5f9;
+  color: #222;
+  border-radius: 15px;
+  min-height: 120px;
+  border: 1px solid #dbe2ea;
+}
+
+#featureOutput {
+  line-height: 1.7;
+}
+
+#featureOutput p {
+  margin: 6px 0;
+}
+
+/* ===============================
+   CAMERA
+================================ */
+
+.camera-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+#webcam {
+  display: none;
+  margin-top: 20px;
+  border-radius: 15px;
+  border: 3px solid #4f46e5;
+  max-width: 100%;
+  background: #111827;
+}
+
+/* ===============================
+   CHATBOT
+================================ */
+
+.chat-box,
+#chatBox {
+  margin-top: 20px;
+  padding: 20px;
+  background: #eef2ff;
+  color: #222;
+  border-radius: 15px;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.chat-input-row input {
+  flex: 1;
+  width: auto;
+  margin: 0;
+  padding: 12px;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+}
+
+.chat-input-row button {
+  margin: 0;
+  padding: 12px 22px;
+}
+
+.chat-output,
+#chatOutput {
+  margin-top: 14px;
+  padding: 12px;
+  background: white;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+.user-question {
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.bot-answer {
+  color: #3730a3;
+}
+
+/* ===============================
+   BROADCAST BOX
+================================ */
+
+.broadcast-box {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f5f7fb;
+  border-radius: 14px;
+}
+
+.broadcast-box textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.broadcast-box button {
+  background: #4f46e5;
+}
+
+.broadcast-box button:hover {
+  background: #3730a3;
+}
+
+/* ===============================
+   IDLE SCREENSHOT SECTION
+================================ */
+
+.idle-screenshot-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.screenshot-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.idle-screenshot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.idle-screenshot-card {
+  background: white;
+  border: 1px solid #dbe2ea;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+.idle-screenshot-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  margin: 12px 0;
+}
+
+.idle-screenshot-info h4 {
+  margin-bottom: 10px;
+}
+
+.idle-screenshot-info p {
+  margin: 5px 0;
+}
+
+.idle-screenshot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.idle-screenshot-actions button,
+.clear-screenshot-btn {
+  border: none;
+  color: white;
+  padding: 8px 13px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.view-screenshot-btn {
+  background: #4f46e5;
+}
+
+.download-screenshot-btn {
+  background: #0284c7;
+}
+
+.delete-screenshot-btn,
+.clear-screenshot-btn {
+  background: #dc2626;
+}
+
+.view-screenshot-btn:hover {
+  background: #3730a3;
+}
+
+.download-screenshot-btn:hover {
+  background: #0369a1;
+}
+
+.delete-screenshot-btn:hover,
+.clear-screenshot-btn:hover {
+  background: #991b1b;
+}
+
+/* ===============================
+   ORDERED LIST
+================================ */
+
+ol {
+  background: #f8fafc;
+  padding: 20px 40px;
+  border-radius: 15px;
+}
+
+/* ===============================
+   DARK MODE
+================================ */
+
+.dark {
+  background: #111827;
+  color: white;
+}
+
+.dark .dashboard,
+.dark .auth,
+.dark .chartBox,
+.dark .inbox,
+.dark .card,
+.dark ol,
+.dark .output-box,
+.dark .chat-box,
+.dark #chatBox,
+.dark .broadcast-box,
+.dark .idle-screenshot-section {
+  background: #1f2937;
+  color: white;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background: #111827;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark table {
+  background: #111827;
+  color: white;
+}
+
+.dark td {
+  border-color: #475569;
+}
+
+.dark tr:nth-child(even) {
+  background: #1e293b;
+}
+
+.dark tr:hover {
+  background: #334155;
+}
+
+.dark .inbox li,
+.dark .chat-output,
+.dark #chatOutput,
+.dark .idle-screenshot-card {
+  background: #0f172a;
+  color: white;
+}
+
+.dark .message-content small {
+  color: #cbd5e1;
+}
+
+.dark .user-question,
+.dark .bot-answer {
+  color: white;
+}
+
+/* ===============================
+   RESPONSIVE - TABLET
+================================ */
+
+@media (max-width: 1150px) {
+  .charts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chartBox {
+    height: 370px;
+    min-height: 370px;
+  }
+
+  .chartBox canvas {
+    height: 290px !important;
+    max-height: 290px !important;
+  }
+}
+
+/* ===============================
+   RESPONSIVE - MOBILE
+================================ */
+
+@media (max-width: 750px) {
+  .dashboard {
+    width: 96%;
+    padding: 16px;
+  }
+
+  nav {
+    align-items: flex-start;
+  }
+
+  nav > div {
+    justify-content: flex-start;
+  }
+
+  .charts {
+    grid-template-columns: 1fr;
+  }
+
+  .chartBox {
+    height: 350px;
+    min-height: 350px;
+  }
+
+  .chartBox canvas {
+    height: 270px !important;
+    max-height: 270px !important;
+  }
+
+  .chat-input-row {
+    flex-direction: column;
+  }
+
+  .chat-input-row input,
+  .chat-input-row button {
+    width: 100%;
+  }
+
+  .inbox-message {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inbox-delete-btn {
+    width: 100%;
+  }
+
+  .screenshot-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   VERY SMALL MOBILE
+================================ */
+
+@media (max-width: 430px) {
+  .auth {
+    margin-top: 35px;
+    padding: 20px;
+  }
+
+  .dashboard {
+    margin: 12px auto;
+    border-radius: 14px;
+  }
+
+  nav h2 {
+    font-size: 23px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 9px 12px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .card p {
+    font-size: 21px;
+  }
+
+  .chartBox {
+    height: 325px;
+    min-height: 325px;
+    padding: 15px;
+  }
+
+  .chartBox canvas {
+    height: 245px !important;
+    max-height: 245px !important;
+  }
+}
